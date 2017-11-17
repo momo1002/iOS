@@ -11,16 +11,25 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var billAmountTextField: UITextField!
+    @IBOutlet weak var tipPercentageTextField: UITextField!
+    
     @IBAction func calculateTip(_ sender: UIButton) {
-        var tipPercent = 0.15
+        var tipPercentage : Double? {
+            if let tip = tipPercentageTextField.text {
+                return Double(tip)! / 100
+            } else {
+                return 0
+            }
+        }
         var billAmount : Double? {
             if let amount = billAmountTextField.text {
                 return Double(amount)
             } else {
-                return Double("0.00")
+                return 0.00
             }
         }
-        let withTip = billAmount! * (tipPercent + 1)
+        
+        let withTip = billAmount! * (tipPercentage! + 1)
         tipAmountLabel.text = "\(withTip)"
     }
     
